@@ -5,7 +5,7 @@ local M = {}
 
 local default_opts = {
   options = {
-    theme = 'Catppuccin Mocha',
+    theme = 'Everforest Dark (Gogh)',
     tabs_enabled = true,
     section_separators = {
       left = wezterm.nerdfonts.pl_left_hard_divider,
