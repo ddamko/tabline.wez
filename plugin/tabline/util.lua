@@ -196,4 +196,13 @@ function M.overwrite_icon(opts, new_icon)
   end
 end
 
+function M._wait(throttle, last_update)
+  local current_time = os.time()
+  return current_time - last_update < throttle
+end
+
+function M._trim(s)
+  return s:match('^%s*(.-)%s*$')
+end
+
 return M
