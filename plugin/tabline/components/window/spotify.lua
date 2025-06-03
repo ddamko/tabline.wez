@@ -13,16 +13,12 @@ local format_playback = function(pb, max_width)
     return pb
   end
 
-  -- split on " - "
-  local artist, track = pb:match('^(.-) %- (.+)$')
-  -- get artist before first ","
-  local pb_main_artist = artist:match('([^,]+)') .. ' - ' .. track
-  if #pb_main_artist <= max_width then
-    return pb_main_artist
+  if #pb <= max_width then
+    return pb
   end
 
-  -- fallback, return track name (trimmed to max width)
-  return track:sub(1, max_width)
+  -- fallback, return with ... trimmed to max width
+  return pb:sub(1, max_width - 3) .. '...'
 end
 
 ---gets the currently playing song from spotify
@@ -34,7 +30,7 @@ local get_currently_playing = function(max_width, throttle)
     return stored_playback
   end
   -- fetch playback using spotify-tui
-  local success, pb, stderr = wez.run_child_process { 'spt', 'pb', '--format', '%a - %t' }
+  local success, pb, stderr = wez.run_child_process { 'spt_pb' }
   if not success then
     wez.log_error(stderr)
     return ''
